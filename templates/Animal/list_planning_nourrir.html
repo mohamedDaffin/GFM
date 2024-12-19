@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+{% if messages %}
+        <div class="alert {% if message.tags == 'success' %}alert-success{% elif message.tags == 'error' %}alert-danger{% elif message.tags == 'info' %}alert-info{% endif %}"></div>
+{% endif %}
+<div class="card shadow">
+    <div class="text-center pagetitle">
+        <h1>Historique planning Nourrir</h1>  
+    </div>
+<div class="card-body">
+    <table class="table table-hover table-bordered table-striped" >
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Periode</th>
+                <th>Employe</th>
+                <th>Animaux</th>
+                <th>Action</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            {% for planning in list_plannings %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td> 
+                    {% if planning.matin and planning.midi and planning.soir %}
+                    <ul>midi</ul>
+                    <ul>matin</ul>
+                    <ul>soir</ul>
+                    {% elif planning.matin and planning.midi %}
+                    <ul>midi</ul>
+                    <ul>matin</ul>
+                    {% elif planning.matin and planning.soir %}
+                    <ul>matin</ul>
+                    <ul>soir</ul>
+                    {% elif planning.soir and planning.midi %}
+                    <ul>midi</ul>
+                    <ul>soir</ul>
+                    {% elif planning.matin %}
+                    <ul>matin</ul>
+                    {% elif planning.soir %}
+                    <ul>soir</ul>
+                    {% else %}
+                    <ul>midi</ul>
+                    {% endif %}
+                </td>
+
+                <td>{{ planning.user.username }}</td>
+                <td>
+                    {% for animal in planning.typee.all %}
+                        {{ animal.name_type }}{% if not forloop.last %}, {% endif %}
+                    {% endfor %}
+                </td>
+                <td>
+                    <div class="d-flex flex-wrap">
+                        <a href="{% url "editer_type_planning" planning.id %}" class="btn btn-warning mx-1 my-1"><i class="bi bi-pencil"></i></a>
+                        <a href="{% url "delete_type_planning" planning.id %}" class="btn btn-danger mx-1 my-1"><i class="bi bi-trash"></i></a>
+                    </div>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+</div>
+
+   
+{% endblock %}

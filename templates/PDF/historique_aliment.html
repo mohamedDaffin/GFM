@@ -1,0 +1,46 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="widtd=device-widtd, initial-scale=1.0">
+    <link href="{% static "assets/css/pdf.css" %}" rel="stylesheet"> 
+
+    <title>Document</title>
+</head>
+<body>
+
+<div class="card shadow">
+    <h1>Historique des Aliments</h1>
+    <table class="table datatable">
+        
+            <tr>
+                <td style="color:black;font-weight: bold;font-size:5">Aliment</td>
+                <td style="color:black;font-weight: bold;font-size:5">Quantité en Stock</td>
+                <td style="color:black;font-weight: bold;font-size:5">Quantité sortie</td>
+                <td style="color:black;font-weight: bold;font-size:5">Quantité entre</td>
+
+
+                <td style="color:black;font-weight: bold;font-size:5">Date</td>
+            </tr>
+    
+        <tbody>
+            {% for item in historique %}
+            <tr>
+                <td>{{ item.aliment }}</td>
+                <td>{{ item.entre }}</td>
+                <td>{{ item.sortie }}</td>
+                <td>{{ item.difference }}</td>
+                <td>{{ item.date }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+   
+</div>
+
+</body>
+</html>
+
+

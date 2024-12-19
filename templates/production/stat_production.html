@@ -1,0 +1,77 @@
+
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="text-center pagetitle">
+    <h1>Détail des Statistiques</h1>  
+</div>
+
+
+<div class="d-colunm">
+   <div class="card">
+       <div class="card-body">
+
+           <!-- Pie Chart -->
+      
+       
+
+        <div id="pieChart"></div>
+
+        <script>
+            document.addEventListener("DOMContentLoaded", () => {
+                // Récupérer les valeurs de séries (quantités), les noms et les couleurs
+                const seriesData = [
+                    {% for data in productions %}
+                        {{ data.quantite_produit }}{% if not forloop.last %}, {% endif %}
+                    {% endfor %}
+                ];
+        
+                const labelsData = [
+                    {% for data in productions %}
+                        '{{ data.culture }}'{% if not forloop.last %}, {% endif %}
+                    {% endfor %}
+                ];
+        
+                const colorsData = [
+                    {% for data in productions %}
+                        '#'+(Math.random().toString(16)+'000000').substring(2,8) {% if not forloop.last %}, {% endif %}
+                    {% endfor %}
+                ];
+        
+                // Initialiser le graphique avec les données
+                new ApexCharts(document.querySelector("#pieChart"), {
+                    series: seriesData,
+                    chart: {
+                        height: 350,
+                        type: 'pie',
+                        toolbar: {
+                            show: true
+                        }
+                    },
+                    labels: labelsData,
+                    colors: colorsData,
+                    responsive: [{
+                        breakpoint: 480,
+                        options: {
+                            chart: {
+                                width: 300
+                            },
+                            legend: {
+                                position: 'bottom'
+                            }
+                        }
+                    }]
+                }).render();
+            });
+        </script>
+        
+           <!-- End Pie Chart -->
+
+       </div>
+   </div>
+</div>
+
+
+
+
+{% endblock %}

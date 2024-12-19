@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block content %}
+  
+
+<div class="card shadow">
+    <div class="text-center pagetitle">
+        <h1>Supprimer Aliment : {{ groupe.name }}</h1>
+    </div>
+    
+
+    <p>Êtes-vous sûr de vouloir supprimer cet aliment ?</p>
+
+    <form method="POST">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger mx-1 my-1">Confirmer la Suppression</button>
+        <a href="{% url 'list_group' %}" class="btn btn-secondary mx-1 my-1">Annuler</a>
+    </form>
+</div>
+
+
+{% endblock content %}

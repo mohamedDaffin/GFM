@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+
+            <div class="card shadow">
+                <div class="text-center pagetitle">
+                    <h1>Enregistrement de la parcelle</h1>
+                </div>
+                <div class="card-body">
+                    <form method="POST" action="">
+                        {% csrf_token %}
+                        {% if form.non_field_errors %}
+                        <div class="alert alert-danger">
+                            {{ form.non_field_errors }}
+                        </div>
+                        {% endif %}
+
+                        <div class="form-group">
+                            {{ form.name_champ|as_crispy_field }}
+                            {% if form.name_champ.errors %}
+                                <div class="text-danger">
+                                    {{ form.name_champ.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
+
+                        <!-- Bouton de soumission -->
+                        <div class="form-group text-center">
+                            
+                                <a href="{% url "show_all_culture" %}" class="btn btn-secondary mx-1 my-1">Annuler</a>
+        
+                         
+                            <button type="submit" class="btn btn-success mx-1 my-1">Enregistrer</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        
+{% endblock content %}

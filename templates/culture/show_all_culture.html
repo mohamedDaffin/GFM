@@ -1,0 +1,46 @@
+
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+
+            <div class="card shadow">
+                <div class="card-body table-responsible">
+                    
+                    <div class="text-center pagetitle">
+                        <h1>Liste de cultures</h1>
+                    </div>
+                    <div class="card-body">
+                        <table class="table">
+                            <div class="mb-3">
+                                <a href="{% url "champ" %}" class="btn btn-primary mx-1 my-1">Ajouter une parcelle</a>
+                            </div>
+                            <thead class="thead-light">
+                                <tr>
+                                    <th>#</th>
+                                    <th>nom Champ</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for production in type %}
+                                <tr>
+                                    <td>{{ forloop.counter }}</td>
+                                    <td><a href="{{ production.get_absolute_url }}" >{{ production.name_champ }}</a></td>
+                                    <td>
+                                        <a href="{% url "editer" production.id %}" class="btn btn-info mx-1 my-1"><i class="bi bi-pencil"></i></a>
+                                        <a href="{% url "delete_parcelle" production.id %}" class="btn btn-danger mx-1 my-1"><i class="bi bi-trash"></i></a>
+                                    </td>
+                                </tr>
+                                {% empty %}
+                                <tr>
+                                    <td colspan="5" class="text-center">Aucune production enregistrée.</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>  
+                    </div>
+                </div>
+            </div>
+        
+{% endblock content %}

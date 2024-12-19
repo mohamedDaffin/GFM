@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}Nourrir un Animal{% endblock %}
+{% block content %}
+<div class="card shadow">
+    <div class="text-center pagetitle">
+        
+        <h1>Nourrir l'animal : {{ Type.name_type }}</h1>
+    </div>
+    <div class="card-body">
+        <form method="POST">
+            {% csrf_token %}
+            
+            {{ form|crispy }}
+
+            <div class="form-group">
+                <label for="aliment">Choisir un aliment</label>
+                <select name="aliment" id="aliment" class="form-control">
+                    {% for ali in aliments %}
+                    <option value="{{ ali.id }}">{{ ali }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            
+            <button type="submit" class="btn btn-primary mx-1 my-1">Nourrir</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

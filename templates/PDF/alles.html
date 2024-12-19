@@ -1,0 +1,53 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="{% static "assets/css/pdf.css" %}" rel="stylesheet"> 
+
+</head>
+<body>
+    <div class="text-center pagetitle">
+        <h1>Historique Animaux</h1>  
+    </div>
+ 
+    <table class="table table-bordered">
+     <center>
+                <td style="color:black;font-weight: bold;font-size:5">Troupeau</td>
+                <td style="color:black;font-weight: bold;font-size:5">Décès</td>
+                <td style="color:black;font-weight: bold;font-size:5">Ventes</td>
+                <td style="color:black;font-weight: bold;font-size:5">Achts</td>
+                <td style="color:black;font-weight: bold;font-size:5">Naissance</td>
+        <tbody>
+            {% for type, data in table.items %}
+            <tr>
+                <td>{{ type.name_type }}</td>
+                <td>{{ data.deces }}</td>
+                <td>{{ data.vente }}</td>
+                <td>{{ data.achat }}</td>
+                <td>{{ data.naissance }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+        <tfoot>
+            <tr>
+                <td style="color:black;font-weight: bold;font-size:5">Total</td>
+                <td>{{ total_deces }}</td>
+                <td>{{ total_vente }}</td>
+                <td>{{ total_achat }}</td>
+                <td>{{ total_naissance }}</td>
+            </tr>
+        </tfoot>
+     </center>
+     
+    </table>
+    <a class="btn btn-primary" href="{% url "pdf_alles" %}">pdf</a>
+ 
+</body>
+</html>
+
+
+
+   

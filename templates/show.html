@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<center>
+    <title>Animal List</title>
+    <h1>Animal List</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Animal</th>
+                <th>Aliments</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for animal in form %}
+                <tr>
+                    <td>{{ animal.nom }}</td>
+                    <td>
+                        {% for aliment in animal.aliment.all %}
+                            {{ aliment.nom }}{% if not forloop.last %}, {% endif %}
+                        {% endfor %}
+                    </td>
+                </tr>
+            {% empty %}
+                <h1>Aucun animal pour le moment</h1>
+                
+            {% endfor %}
+        </tbody>
+    </table>
+</center>
+{% endblock content %}

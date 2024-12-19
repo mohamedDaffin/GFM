@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block content %}
+{% if messages %}
+<div class="alert {% if message.tags == 'success' %}alert-success{% elif message.tags == 'error' %}alert-danger{% elif message.tags == 'info' %}alert-info{% endif %}"></div>
+{% endif %}
+            <div class="card shadow">
+                <div class="text-center pagetitle">
+                    <h2>Planning Nourriture</h2>
+                </div>
+                <div class="card-body">
+                    
+                    <form method="POST" action="">
+                        {% csrf_token %}
+                        {% if form.non_field_errors %}
+                        <div class="alert alert-danger">
+                            {{ form.non_field_errors }}
+                        </div>
+                        {% endif %}
+                        
+                        <div class="form-group">
+                            {{ form.matin|as_crispy_field }}
+                            {% if form.matin.errors %}
+                                <div class="text-danger">
+                                    {{ form.matin.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
+
+                        <div class="form-group">
+                            {{ form.midi|as_crispy_field }}
+                            {% if form.midi.errors %}
+                                <div class="text-danger">
+                                    {{ form.midi.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
+
+                        <div class="form-group">
+                            {{ form.soir|as_crispy_field }}
+                            {% if form.soir.errors %}
+                                <div class="text-danger">
+                                    {{ form.soir.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
+
+                        
+
+                        <!-- Culture et Champ -->
+                         
+
+                        <div class="form-group">
+                            {{ form.typee|as_crispy_field }}
+                            {% if form.typee.errors %}
+                                <div class="text-danger">
+                                    {{ form.typee.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
+
+                        <!-- User -->
+                        <div class="form-group">
+                            {{ form.user|as_crispy_field }}
+                            {% if form.user.errors %}
+                                <div class="text-danger">
+                                    {{ form.user.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
+
+                        <div class="form-group text-center">
+                          
+                            <button type="submit" class="btn btn-success mx-1 my-1">Enregistrer</button>
+                            <a href="{% url 'show_all_page' %}" class="btn btn-secondary mx-1 my-1">Annuler</a>
+
+                        </div>
+                    </form>
+                </div>
+</div>
+
+{% endblock content %}

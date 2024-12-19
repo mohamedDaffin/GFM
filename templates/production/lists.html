@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+
+    {% if messages %}
+    {% for message in messages  %}
+    <p class="alert alert-success">{{ message }}</p>
+    {% endfor %}
+    {% endif %}
+    
+            <div class="card shadow">
+                <div class="text-center pagetitle">
+                    <h4 class="mb-0">Liste des Productions</h4>
+                   
+                </div>
+                <div class="card-body">
+                  <div class="card-body table-responsible">
+
+                        <table class="table table-hover">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th>#</th>
+                                    <th>Culture</th>
+                                    <th>Quantité</th>
+                                    <!-- <th>Date</th> -->
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for production in productions %}
+                                <tr>
+                                    <td>{{ forloop.counter }}</td>
+                                    <td>{{ production.culture.name_culture }}</td>
+                                    <td>{{ production.quantite_produit }}</td>
+                                    <!-- <td>{{ production.date }}</td> -->
+                                    <td>
+                                        <a href="{% url 'produit_entre'  production.id%}" class="btn btn-warning mx-1 my-1"><i class="bi bi-pencil"></i></a>
+                                        <a href="{% url 'produit_vente' production.id%}" class="btn btn-success mx-1 my-1">Vente</a>
+                                    </td>
+                                </tr>
+                                {% empty %}
+                                <tr>
+                                    <td colspan="5" class="text-center">Aucune production enregistrée.</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="mb-3">
+                        <a href="{% url "show_all_culture" %}" class="btn btn-secondary mx-1 my-1">Retour</a>
+
+                    </div>
+                </div>
+            </div>
+        
+
+
+{% endblock content %}

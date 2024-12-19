@@ -1,0 +1,77 @@
+
+ {% extends "base.html" %}
+ {% load crispy_forms_tags %}
+ {% block content %}
+<div class="card shadow">
+    <div class="text-center pagetitle">
+        <h1>Historique Animaux</h1>  
+    </div>
+    
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Type d'Animal</th>
+                <th>Décès</th>
+                <th>Ventes</th>
+                <th>Achats</th>
+                <th>Naissance</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for type, data in table.items %}
+            <tr>
+                <td>{{ type.name_type }}</td>
+                <td>{{ data.deces }}</td>
+                <td>{{ data.vente }}</td>
+                <td>{{ data.achat }}</td>
+                <td>{{ data.naissance }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+        <tfoot>
+            <tr>
+                <th>Total</th>
+                <td>{{ total_deces }}</td>
+                <td>{{ total_vente }}</td>
+                <td>{{ total_achat }}</td>
+                <td>{{ total_naissance }}</td>
+            </tr>
+        </tfoot>
+    </table>
+    <a class="btn btn-primary" href="{% url "pdf_alles" %}">pdf</a>
+
+</div>
+
+</div>
+    <div class="d-row">
+        <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Statistique de production animalière</h5>
+
+            <!-- Pie Chart -->
+            <div id="pieChart"></div>
+
+            <script>
+            document.addEventListener("DOMContentLoaded", () => {
+                new ApexCharts(document.querySelector("#pieChart"), {
+                series: [{{ total_vente }}, {{ total_naissance }}, {{ total_achat }}, {{ total_deces }}],
+                chart: {
+                    height: 350,
+                    type: 'pie',
+                    toolbar: {
+                    show: true
+                    }
+                },
+                labels: ['vente', 'naissance', 'Achats', 'deces']
+                }).render();
+            });
+            </script>
+            <!-- End Pie Chart -->
+
+        </div>
+        </div>
+</div>
+
+
+
+{% endblock %}

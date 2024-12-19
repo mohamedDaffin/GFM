@@ -1,0 +1,38 @@
+
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block title %}Liste des Utilisateurs avec Groupes{% endblock %}
+
+{% block content %}
+<div class="col-lg">
+    <div class="card">
+      <div class="card-body">
+        <div class="text-center pagetitle">
+            <h1>Enregistrer un employe</h1>
+        </div>
+            <form method="POST" >
+                {% csrf_token %}
+                <div class="col-12">
+                    {{ form|crispy}}
+                </div>
+                
+                <div class="form-group">
+                    <label for="role_select">Rôles :</label>
+                    <select name="roles" id="role_select" class="form-control">
+                        <option value="">-- Sélectionnez un groupe --</option>
+                        {% for group in groups %}
+                            <option value="{{ group.id }}">{{ group.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="text-center mt-3">
+                    <button type="submit" class="btn btn-primary mx-1 my-1">Enregistrer</button>
+                    <a href="{% url 'list_group' %}" class="btn btn-secondary mx-1 my-1">Annuler</a>
+                </div>
+            </form>
+                
+            </div>
+        </div>
+    </div>
+{% endblock %}

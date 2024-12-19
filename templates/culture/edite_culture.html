@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+    {% if messages %}
+    {% for message in messages %}
+    <p class="alert alert-info"> {{ message }}</p>
+    {% endfor %}
+    {% endif %}
+   
+            <div class="card shadow">
+                <div class="text-center pagetitle">
+                    <h1>Editer Culture: </h1>
+                </div>
+                <div class="card-body">
+                    <form method="POST" action="">
+                        {% csrf_token %}
+                        {% if form.non_field_errors %}
+                        <div class="alert alert-danger">
+                            {{ form.non_field_errors }}
+                        </div>
+                        {% endif %}
+                        
+                        <div class="form-group">
+                            {{ form.champ|as_crispy_field }}
+                            {% if form.champ.errors %}
+                                <div class="text-danger">
+                                    {{ form.champ.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
+
+                        <div class="form-group">
+                            {{ form.name_culture|as_crispy_field }}
+                            {% if form.name_culture.errors %}
+                                <div class="text-danger">
+                                    {{ form.name_culture.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
+
+                        <div class="form-group">
+                            {{ form.date_plante|as_crispy_field }}
+                            {% if form.date_plante.errors %}
+                                <div class="text-danger">
+                                    {{ form.date_plante.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
+
+                        <div class="form-group">
+                            {{ form.date_recolte|as_crispy_field }}
+                            {% if form.date_recolte.errors %}
+                                <div class="text-danger">
+                                    {{ form.date_recolte.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
+
+                        <div class="form-group text-center">
+                            <button type="submit" class="btn btn-success mx-1 my-1">Enregistrer</button>
+                            
+                                <a href="{% url "show_all_culture" %}" class="btn btn-secondary mx-1 my-1">Annuler</a>
+        
+                          
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+
+{% endblock content %}

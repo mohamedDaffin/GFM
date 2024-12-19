@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}Liste des Animaux{% endblock %}
+{% block content %}
+<div class="text-center pagetitle">
+    <h1>Listes des animaux</h1> 
+</div>
+
+<section class="section">
+    <div class="row">
+
+        <div class="col-lg-15">
+       
+            <div class="card">
+                <div class="card-body table-responsible">
+                    {% for item in items %}
+                    <div class="mb-3">
+                        <a href="{{ item.get_absolute_url }}" class="btn btn-primary mx-1 my-1">Ajouter animal</a>
+                    </div>
+                    {% endfor %}
+
+                    <table class="table datatable">
+                        <thead>
+                            <tr>
+                                <th>N.</th>
+                                <th>Code</th>
+
+                                <th>Nom</th>
+                                <th>Sexe</th>
+                            
+                            
+                                <th>Poids</th>
+                                <th>Description</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for animal in detail %}
+                                <tr>
+                                    <td>{{ forloop.counter }}</td>
+                                    <td>{{ animal.code }}</td>
+                                    <td>{{ animal.name_animal }}</td>
+                                    <td>{{ animal.sexe }}</td>
+
+                                
+                                    
+                                    <td>{{ animal.poids }} kg</td>
+                                    <td>{{ animal.description }}</td>
+                                    <td>
+                                        <div class="d-flex flex-wrap">
+                                        <a href="{% url 'show_detail_animal' animal.id %}" class="btn btn-info  mx-1 my-1" ><i class="bi bi-info"></i></a>
+                                        {% comment %} <a href="{% url 'editer_animal' animal.id %}" class="btn btn-warning ">Modifier</a> {% endcomment %}
+                                        <a href="{% url 'delete_animal' animal.id %}" class="btn btn-danger   mx-1 my-1" ><i class="bi bi-trash"></i></a>
+                                        <a href="{% url 'delete_animal_vente' animal.id %}" class="btn btn-success   mx-1 my-1">vente</a>
+                                        <a href="{% url 'pdf_code' animal.id %}" class="btn btn-info mx-1 my-1">pdf code</a>
+
+                                        </div>
+                                        
+                                    </td>
+                                </tr>
+                            {% empty %}
+                                <tr>
+                                    <td colspan="8" class="text-center">Aucun animal disponible.</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>  
+            </div>
+        </div>
+
+
+    </div>
+    <div class="text-center">
+        <a class="btn btn-secondary" href="{% url "show_all_page" %}">Retour</a>
+    </div>
+    
+</section>
+{% endblock %}

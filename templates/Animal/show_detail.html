@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block title %}Détails de l'Animal{% endblock %}
+{% block content %}
+<div class="card shadow">
+    <div class="text-center pagetitle">
+        <h2>Détails de l'animal : {{ animal.name_animal }}</h2>
+    </div>
+    <div class="card-body">
+        <p><strong>Code:</strong> {{ animal.code }}</p>
+        <p><strong>Sexe:</strong> {{ animal.sexe }}</p>
+        <p><strong>Classe:</strong> {{ animal.typee.classe }}</p>
+        <p><strong>Type:</strong> {{ animal.typee.name_type }}</p>
+        <p><strong>Poids:</strong> {{ animal.poids }} kg</p>
+        <p><strong>Description:</strong> {{ animal.description }}</p>
+        <p><strong>Alimentation:</strong>{% for item in items %} {{ item}} ,   {% endfor %} </p>
+        <a href="{% url 'show_all_page' %}" class="btn btn-secondary mx-1 my-1">Retour à la liste</a>
+    </div>
+</div>
+{% endblock %}

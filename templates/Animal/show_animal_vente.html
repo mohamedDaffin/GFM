@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}Liste des Animaux{% endblock %}
+{% block content %}
+<div class="text-center pagetitle">
+    <h1>Listes des animaux</h1> 
+</div>
+                <form method="POST" action="{% url "delete_bcp_animals" %}">
+                    {% csrf_token %}
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>N.</th>
+                                    <th>Nom</th>
+                                    <th>Poids</th> 
+                                    <th>Tout selectionner <input type="checkbox" id="select-all"></th>  
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for animal in detail %}
+                                    <tr>
+                                        <td>{{ forloop.counter }}</td>
+                                        <td>{{ animal.name_animal }}</td>
+                                        <td>{{ animal.poids }} kg</td>
+                                        <td><input type="checkbox" name="selected_animals" value="{{ animal.id }}" class="animal-checkbox"></td>
+                                    </tr>
+                                {% empty %}
+                                    <tr>
+                                        <td colspan="8" class="text-center">Aucun animal disponible.</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                        <div class="text-center mt-3">
+                            <button type="submit" class="btn btn-danger">Vendre les animaux sélectionnés</button>
+                        </div>
+                </form>
+                {% comment %} </div>  
+            </div>
+        </div>
+
+
+    </div> {% endcomment %}
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script>
+        $('#select-all').on('click', function() {
+            $('.animal-checkbox').prop('checked', this.checked);
+        });
+    </script>
+
+
+{% endblock %}

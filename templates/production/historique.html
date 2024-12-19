@@ -1,0 +1,49 @@
+{% extends 'base.html' %} 
+{% load crispy_forms_tags %}
+{% load static %}
+{% block content %}
+
+      <section class="section">
+        <div class="row">
+
+          <div class="col-lg-15">
+          
+            <div class="card">
+              <div class="card-body table-responsible">
+                  <table class="table datatable">
+                    <thead>
+                        <tr>
+                            <th>Aliment</th>
+                            <th>Quantite en stock</th>
+                            <th>Quantite entre</th>
+                            <th>Date entre</th>
+                            <th>Quantite sortie</th>
+                            <th>Date sortie</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in  items %}
+                          <tr>
+                            <td>{{ item.culture }}</td>
+                            <td>{{ item.tolal }}</td>
+                            <td>{{ item.quantite_entre }}</td>
+                            <td>{{ item.date_entre }}</td>
+                            <td>{{ item.quantite_sorti }}</td>
+                            <td>{{ item.date_sorti }}</td>
+                          </tr>
+                          
+                        {% endfor %}
+                    </tbody>
+                </table>
+              </div>
+            </div>
+
+          </div>
+        <a class="btn btn-primary" href="{% url "pdf_production" %}">pdf</a>
+
+        </div>      
+     
+    </section>
+    
+ 
+{% endblock content %}

@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block content %}
+
+
+            <div class="card shadow">
+                <div class="text-center pagetitle">
+                    <h4 class="mb-0">Enregistrer la Vente de Production</h4>
+                </div>
+                <div class="card-body">
+                    <form method="POST" action="">
+                        {% csrf_token %}
+                        {% if form.non_field_errors %}
+                        <div class="alert alert-danger">
+                            {{ form.non_field_errors }}
+                        </div>
+                        {% endif %}
+                        
+                        <div class="form-group">
+                            {{ form.quantite_produit|as_crispy_field }}
+                            {% if form.quantite_produit.errors %}
+                                <div class="text-danger">
+                                    {{ form.quantite_produit.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
+
+                        <div class="form-group">
+                            {{ form.culture|as_crispy_field }}
+                            {% if form.culture.errors %}
+                                <div class="text-danger">
+                                    {{ form.culture.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
+
+                        <div class="form-group text-center">
+                            <button type="submit" class="btn btn-success mx-1 my-1">Enregistrer la Vente</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+       
+
+
+{% endblock content %}

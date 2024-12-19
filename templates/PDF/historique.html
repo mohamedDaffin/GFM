@@ -1,0 +1,56 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="widtd=device-widtd, initial-scale=1.0">
+  <link href="{% static "assets/css/pdf.css" %}" rel="stylesheet"> 
+
+  <title>Document</title>
+</head>
+<body>
+  <section class="section">
+    <div class="row">
+
+      <div class="col-lg-15">
+      
+        <div class="card">
+          <div class="card-body table-responsible">
+              <table class="table datatable">
+                    <tr>
+                        <td style="color:black;font-weight: bold;font-size:5">Aliment</td>
+                        <td style="color:black;font-weight: bold;font-size:5">Quantite en stock</td>
+                        <td style="color:black;font-weight: bold;font-size:5">Quantite entre</td>
+                        <td style="color:black;font-weight: bold;font-size:5">Date entre</td>
+                        <td style="color:black;font-weight: bold;font-size:5">Quantite sortie</td>
+                        <td style="color:black;font-weight: bold;font-size:5">Date sortie</td>
+                    </tr>
+                </tdead>
+                <tbody>
+                    {% for item in  items %}
+                      <tr>
+                        <td>{{ item.culture }}</td>
+                        <td>{{ item.tolal }}</td>
+                        <td>{{ item.quantite_entre }}</td>
+                        <td>{{ item.date_entre }}</td>
+                        <td>{{ item.quantite_sorti }}</td>
+                        <td>{{ item.date_sorti }}</td>
+                      </tr>
+                      
+                    {% endfor %}
+                </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+    <a class="btn btn-primary" href="{% url "pdf_production" %}">pdf</a>
+
+    </div>      
+ 
+</section>
+</body>
+</html>
+
+      

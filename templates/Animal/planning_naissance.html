@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="card shadow">
+    <h1>Historique des naissance</h1>
+    <table class="table datatable">
+        <thead>
+            <tr>
+                <th>Entrer</th>
+                <th>Type</th>
+                <th>Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in form %}
+                <tr>
+                    {% if item.naissance %}<td>{{ item.naissance }}</td>
+                    <td>{{ item.Type }}</td>
+                
+                    <td>{{ item.date_enregistrer }}</td>
+                </tr>
+                {% endif %}
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

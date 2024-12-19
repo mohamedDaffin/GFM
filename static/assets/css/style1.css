@@ -1,0 +1,22 @@
+@media screen and (max-width: 768px) {
+    .btn {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    .table {
+        font-size: 0.9em;  
+    }
+}
+
+@media screen and (max-width: 576px) {
+    .table th, .table td {
+        white-space: nowrap; 
+    }
+}
+
+label.required::after {
+    content: " *";
+    color: red;
+    font-weight: bold;
+}

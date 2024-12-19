@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Culture</th>
+            <th>Champ</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for culture in form %}
+        <tr>
+           
+            <td>{{ culture.name_culture }}</td> 
+            <td>{{ culture.champ }}</td> 
+            
+        </tr>
+        {% endfor %}
+        
+    </tbody>
+</table>
+{% endblock content %}

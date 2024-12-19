@@ -1,0 +1,18 @@
+
+
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="card shadow">
+    <h1>Supprimer Aliment : {{ aliment.nom }}</h1>
+
+    <p>Êtes-vous sûr de vouloir supprimer cet aliment ?</p>
+
+    <form method="POST">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Confirmer la Suppression</button>
+        <a href="{% url 'aliment' %}" class="btn btn-secondary">Annuler</a>
+    </form>
+</div>
+
+{% endblock content %}

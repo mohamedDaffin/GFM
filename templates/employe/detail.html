@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}Détails du Groupe: {{ group.name }}{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="card shadow">
+        <div class="text-center pagetitle">
+            <h1>detail du group : {{ group.name}}</h1>
+        </div>
+        <div class="card-body">
+            <h3>Nom du Groupe</h3>
+            <p>{{ group.name }}</p>
+
+            <h3>Permissions associées au groupe</h3>
+            <ul>
+                {% for perm in group.permissions.all %}
+                <li>{{ perm.name }}</li>
+                {% empty %}
+                <p>Aucune permission associée</p>
+                {% endfor %}
+            </ul>
+
+            <h3>Utilisateurs associés à ce groupe</h3>
+            <ul>
+                {% for user in group.user_set.all %}
+                <li>{{ user.username }} :{{ user.email }}</li>
+                {% empty %}
+                <p>Aucun utilisateur associé à ce groupe</p>
+                {% endfor %}
+            </ul>
+
+            <div class="mt-4">
+                <a href="{% url "list_group" %}" class="btn btn-secondary mx-1 my-1">Retour</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

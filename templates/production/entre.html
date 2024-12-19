@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block content %}
+
+
+    {% if messages %}
+    {% for message in messages  %}
+    <p class="alert alert-info">{{ message }}</p>
+    {% endfor %}
+    {% endif %}
+    
+            <div class="card shadow">
+                <div class="ctext-center pagetitle">
+                    <h4 class="mb-0">Enregistrer  Production</h4>
+                </div>
+                <div class="card-body">
+                    <form method="POST" action="">
+                        {% csrf_token %}
+                        {% if form.non_field_errors %}
+                        <div class="alert alert-danger">
+                            {{ form.non_field_errors }}
+                        </div>
+                        {% endif %}
+                        
+                        <div class="form-group">
+                            {{ form.quantite_produit|as_crispy_field }}
+                            {% if form.quantite_produit.errors %}
+                                <div class="text-danger">
+                                    {{ form.quantite_produit.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
+
+                        <div class="form-group">
+                            {{ form.culture|as_crispy_field }}
+                            {% if form.culture.errors %}
+                                <div class="text-danger">
+                                    {{ form.culture.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
+
+                        <div class="form-group text-center">
+                            <button type="submit" class="btn btn-info mx-1 my-1">Enregistrer l'entrer </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+       
+{% endblock content %}

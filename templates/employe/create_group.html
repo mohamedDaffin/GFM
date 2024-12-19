@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block title %}Créer un Nouveau Groupe{% endblock %}
+{% block content %}
+
+<div class="container mt-5">
+    <div class="card shadow">
+        <div class="text-center pagetitle">
+            <h1>Creer un groupe</h1>
+        </div>
+        <div class="card-body">
+            <form method="POST">
+                {% csrf_token %}
+                
+                <div class="form-group">
+                    <label for="group_name">Nom du Groupe</label>
+                    <input type="text" class="form-control" id="group_name" name="group_name" placeholder="Entrez le nom du groupe">
+                </div>
+
+                <div class="form-group">
+                    <label for="permissions">Permissions Disponibles</label>
+                    <select name="permissions" id="permissions" class="form-control" multiple>
+                        {% for permission in permissions %}
+                        <option value="{{ permission.id }}">{{ permission.name }}</option>
+                        {% endfor %}
+                    </select> 
+                    <small class="form-text text-muted">Utilisez CTRL/CMD pour sélectionner plusieurs permissions.</small>
+                </div>
+
+                <div class="text-center mt-3">
+                    <button type="submit" class="btn btn-success mx-1 my-1">Enregistrer le Groupe</button>
+                    <a href="{% url 'list_group' %}" class="btn btn-secondary mx-1 my-1">Annuler</a>     
+                </div>
+               
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="container mt-5">
+    <h1>Liste des Employés</h1>
+    <a href="#" class="btn btn-success mb-3">Ajouter un Employé</a>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Prénom</th>
+                <th>Nom</th>
+                <th>Nom d'utilisateur</th>
+                <th>Email</th>
+                <th>Numéro</th>
+                <th>Image</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for employe in als %}
+                <tr>
+                    <td>{{ employe.first_name }}</td>
+                    <td>{{ employe.last_name }}</td>
+                    <td>{{ employe.username }}</td>
+                    <td>{{ employe.email }}</td>
+                    <td>{{ employe.numero }}</td>
+                    <td>
+                        {% if employe.image %}
+                            <img src="{{ employe.image.url }}" alt="{{ employe.username }}" class="img-thumbnail" style="max-width: 100px;">
+                        {% else %}
+                            Aucune image
+                        {% endif %}
+                    </td>
+                    <td>
+                        <a href="{% url 'edite_user' employe.id %}" class="btn btn-primary btn-sm">Éditer</a>
+                        <a href="{% url "delete_user" employe.id%}" class="btn btn-danger btn-sm">Supprimer</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

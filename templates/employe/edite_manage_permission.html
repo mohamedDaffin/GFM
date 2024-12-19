@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}Modifier les Permissions du Groupe: {{ group.name }}{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="card shadow">
+        <div class="text-center pagetitle">
+            <h1>Modifier les Permissions du Groupe: {{ group.name }}</h1>
+        </div>
+        <div class="card-body">
+            <form method="POST">
+                {% csrf_token %}
+
+                <div class="form-group">
+                    <label for="group_name">Nom du Groupe</label>
+                    <input type="text" class="form-control" id="group_name" name="group_name" value="{{ group.name }}" disabled>
+                </div>
+                <br>
+                
+                {% comment %} <div class="form-group">
+                    <label for="permissions">Permissions Disponibles</label>
+                    <div class="form-row">
+                        <div class="d-flex flex-wrap justify-content-start">
+                            {% for permission in group_permissions %}
+                            <div class="form-group text-center">
+                                <label style ="margin-right:20%;" for="permission_{{ permission.id }}">{{ permission.name }}</label><br>
+                                <input type="checkbox" class="form-check-input" id="permission_{{ permission.id }}" name="permissions" value="{{ permission.id }}"
+                                {% if permission in group_permissions %}checked{% endif %}>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div> {% endcomment %}
+                <div class="form-group">
+                    <label for="permissions">Permissions Disponibles</label>
+                    <select name="permissions" id="permissions" class="form-control" multiple>
+                        {% for permission in permissions %}
+                        <option value="{{ permission.id }}" >{{ permission.name }} </option>
+                        {% endfor %}
+                    </select> 
+                    <small class="form-text text-muted">Utilisez CTRL/CMD pour sélectionner plusieurs permissions.</small>
+                </div>
+
+
+                <button type="submit" class="btn btn-success mx-1 my-1">Enregistrer les Modifications</button>
+                <a href="{% url 'list_group' %}" class="btn btn-secondary mx-1 my-1">Annuler</a>
+            </form>
+            
+        </div>
+    </div>
+</div>
+{% endblock %}

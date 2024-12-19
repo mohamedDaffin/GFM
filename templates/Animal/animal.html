@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}Ajouter un Animal{% endblock %}
+{% block content %}
+<div class="card shadow">
+    <div class="text-center pagetitle">
+        <h1>Ajouter un animal</h1> 
+        {% if messages %}
+        <div class="alert alert-info">
+            {% for message in messages %}
+                {{ message }}
+            {% endfor %}
+        </div>
+        {% endif %} 
+    </div>
+       
+    <div class="card-body">
+        <form method="POST">
+            {% csrf_token %}
+            {{ form|crispy }}
+
+            <div class="text-center mt-3">
+                <button type="submit" class="btn btn-primary mx-1 my-1">Ajouter l'animal</button>
+                <a href="{% url 'show_all_page' %}" class="btn btn-secondary mx-1 my-1">Annuler</a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

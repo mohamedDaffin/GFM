@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+{% if messages %}
+{% for message in messages %}
+    <div class="alert {% if message.tags == 'success' %}alert-success{% elif message.tags == 'error' %}alert-danger{% elif message.tags == 'info' %}alert-info{% endif %}"></div>
+{% endfor %}
+{% endif %}
+<div class="card shadow">
+   
+        <div class="text-center pagetitle">
+            <h1>Historique planning Santé</h1>  
+        </div>
+    <div class="card-body">
+        <table class="table table-hover table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Tache Animal</th>
+                    <th>Motif</th>
+                    <th>Utilisateur</th>
+                    <th>Animaux</th>
+                    <th>Date de fin</th>
+                    <th>Action</th>
+    
+                </tr>
+            </thead>
+            <tbody>
+                {% for planning in list_plannings %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{% if animal.do_animal %}Fait{% else %} Pas fait {% endif%}</td>
+                    <td>{{ planning.motif }}</td>
+                    <td>{{ planning.user.username }}</td>
+                    
+                    <td>
+                        {% for animal in planning.animal.all %}
+                            {{ animal.name_animal }}{% if not forloop.last %}, {% endif %}
+                        {% endfor %}
+                    </td>
+                    <td>{{ planning.date_fin }}</td>
+                    <td>
+                        <div class="d-flex flex-wrap">
+                            <a href="{% url "editer_animal_planning"  planning.id%}" class="btn btn-warning mx-1 my-1"><i class="bi bi-pencil"></i></a>
+                            <a href="{% url "delete_animal_planning" planning.id%}" class="btn btn-danger mx-1 my-1"><i class="bi bi-trash"></i></a>
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+    
+            </tbody>
+        </table>
+    </div>
+    
+
+</div>
+
+
+   
+    {% endblock %}

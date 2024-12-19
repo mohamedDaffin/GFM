@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+    
+       
+            <div class="card shadow-sm">
+                <div class="text-center pagetitle">
+                    <h2>Enregistrement Planning Culture</h2>
+                </div>
+                <div class="card-body">
+                    <form method="POST">
+                        {% csrf_token %}
+                        {{ form|crispy }}
+                        <div class="form-group text-center">
+                            <button type="submit" class="btn btn-success mx-1 my-1">Enregistrer</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+    
+
+
+{% endblock %}

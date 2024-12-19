@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}Modifier un Animal{% endblock %}
+{% block content %}
+<div class="card shadow">
+    <div class="text-center pagetitle">
+        <h1>modifier les informations</h1> 
+    </div>
+    <div class="card-body">
+        <form method="POST">
+            {% csrf_token %}
+            {{ form|crispy }}
+            <button type="submit" class="btn btn-success mx-1 my-1">Enregistrer les modifications</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

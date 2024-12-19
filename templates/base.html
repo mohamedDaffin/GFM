@@ -1,0 +1,469 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Dashboard ferme</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="assets/img/favicon.png" rel="icon">
+  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+  <!-- CSS Bootstrap -->
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- JavaScript Bootstrap -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+
+
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.gstatic.com" rel="preconnect">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+  <!-- Vendor CSS Files -->
+  <link href="{% static "assets/vendor/bootstrap/css/bootstrap.min.css" %}" rel="stylesheet">
+  <link href="{% static "assets/vendor/bootstrap-icons/bootstrap-icons.css" %}" rel="stylesheet">
+  <link href="{% static "assets/vendor/boxicons/css/boxicons.min.css" %}" rel="stylesheet">
+  <link href="{% static "assets/vendor/quill/quill.snow.css" %}" rel="stylesheet">
+  <link href="{% static "assets/vendor/quill/quill.bubble.css" %}" rel="stylesheet">
+  <link href="{% static "assets/vendor/remixicon/remixicon.css" %}" rel="stylesheet">
+  <link href="{% static "assets/vendor/simple-datatables/style.css" %}" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="{% static "assets/css/style.css" %}" rel="stylesheet"> 
+  <link href="{% static "assets/css/style1.css" %}" rel="stylesheet"> 
+  <link href="{% static "assets/css/style2.css" %}" rel="stylesheet"> 
+
+
+
+
+
+  <!-- =======================================================
+  * Template Name: NiceAdmin
+  * Template URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
+  * Updated: Apr 20 2024 with Bootstrap v5.3.3
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
+</head>
+
+<body>
+
+  <!-- ======= Header ======= -->
+  <header id="header" class="header fixed-top d-flex align-items-center">
+
+    <div class="d-flex align-items-center justify-content-between">
+      <a href="#" class="logo d-flex align-items-center">
+        <img src="assets/img/logo.png" alt="">
+        <span class="d-none d-lg-block">Gestion de Ferme Mixte (GFM)</span>
+      </a>
+      <i class="bi bi-list toggle-sidebar-btn"></i>
+    </div><!-- End Logo -->
+
+    {% comment %} <div class="search-bar">
+      <form class="search-form d-flex align-items-center" method="POST" action="#">
+        <input type="text" name="query" placeholder="Search" title="Enter search keyword">
+        <button type="submit" title="Search"><i class="bi bi-search"></i></button>
+      </form>
+    </div><!-- End Search Bar --> {% endcomment %}
+
+    <nav class="header-nav ms-auto">
+      <ul class="d-flex align-items-center">
+
+        <li class="nav-item d-block d-lg-none">
+          <a class="nav-link nav-icon search-bar-toggle " href="#">
+            <i class="bi bi-search"></i>
+          </a>
+        </li>
+
+        
+      {% if  request.user.employe.image %}
+        <li class="nav-item dropdown pe-3">
+
+          <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+            {% comment %} <img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle"> {% endcomment %}
+            <img src="{{ request.user.employe.image.url }}" alt="{{ request.user.username }}" class="rounded-circle">
+
+            <span class="d-none d-md-block dropdown-toggle ps-2">{{request.user.username}}</span>
+          </a>
+
+          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+            <li class="dropdown-header">
+              <h6>Roles:</h6>
+              <span>{{request.user.groups.first.name}}</span>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+            {% if user.is_authenticated %}
+              <li>
+                <a class="dropdown-item d-flex align-items-center" href="{% url "edite_user" request.user.id %}">
+                  <i class="bi bi-person"></i>
+                  <span>My Profile</span>
+                </a>
+              </li>
+            {% endif %}
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li>
+              <a class="dropdown-item d-flex align-items-center" href="{% url "logout" %}">
+                <i class="bi bi-box-arrow-right"></i>
+                <span>Deconnecter</span>
+              </a>
+            </li>
+
+          </ul><!-- End Profile Dropdown Items -->
+        </li><!-- End Profile Nav -->
+      {% else %}
+      <li class="nav-item dropdown pe-3">
+
+        <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+          {% comment %} <img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle"> {% endcomment %}
+          <img src="{{ request.user.employe.image }}" alt="{{ request.user.username }}" class="rounded-circle">
+
+          <span class="d-none d-md-block dropdown-toggle ps-2">{{request.user.username}}</span>
+        </a>
+
+        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+          <li class="dropdown-header">
+            <h6>Roles:</h6>
+            <span>{{request.user.groups.first.name}}</span>
+          </li>
+          <li>
+            <hr class="dropdown-divider">
+          </li>
+          {% if user.is_authenticated %}
+            <li>
+              <a class="dropdown-item d-flex align-items-center" href="{% url "edite_user" request.user.id %}">
+                <i class="bi bi-person"></i>
+                <span>My Profile</span>
+              </a>
+            </li>
+          {% endif %}
+          <li>
+            <hr class="dropdown-divider">
+          </li>
+
+          <li>
+            <hr class="dropdown-divider">
+          </li>
+          <li>
+            <hr class="dropdown-divider">
+          </li>
+
+          <li>
+            <a class="dropdown-item d-flex align-items-center" href="{% url "logout" %}">
+              <i class="bi bi-box-arrow-right"></i>
+              <span>Deconnecter</span>
+            </a>
+          </li>
+
+        </ul><!-- End Profile Dropdown Items -->
+      </li>
+      {% endif %}
+        
+
+
+
+      </ul>
+    </nav><!-- End Icons Navigation -->
+    
+  </header><!-- End Header -->
+
+  <!-- ======= Sidebar ======= -->
+  <aside id="sidebar" class="sidebar">
+
+    <ul class="sidebar-nav" id="sidebar-nav">
+
+      <li class="nav-item">
+        <a class="nav-link " href="{% url "index" %}">
+          <i class="bi bi-grid"></i>
+          <span>Dashboard</span>
+        </a>
+      </li><!-- End Dashboard Nav -->
+
+
+
+
+
+
+      
+      
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#animal-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-menu-button-wide"></i><span>GESTION DES ANIMAUX</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="animal-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="{% url "show_all_page" %}">
+              <i class="bi bi-circle"></i><span>Troupeau</span>
+            </a>
+          </li>
+          <li>
+            <a href="{% url "many_register_animal" %}">
+              <i class="bi bi-circle"></i><span>Ajouter plusieurs</span>
+            </a>
+          </li>
+          <li>
+            <a href="{% url "animal_solo" %}">
+              <i class="bi bi-circle"></i><span>Ajouter un Animal</span>
+            </a>
+          </li>
+          <li>
+            <a href="{% url "aliment" %}">
+              <i class="bi bi-circle"></i><span>Aliment</span>
+            </a>
+          </li>
+          <li>
+            <a href="{% url "race" %}">
+              <i class="bi bi-circle"></i><span>Classes</span>
+            </a>
+          </li>
+          <li>
+            <a href="#" data-bs-target="#animal-subnav" data-bs-toggle="collapse" class="nav-link collapsed">
+              <i class="bi bi-circle"></i><span>Consulter Historique</span><i class="bi bi-chevron-down ms-auto"></i>
+            </a>
+            <!-- Sous-menu dans "Gestion des Animaux" -->
+            <ul id="animal-subnav" class="nav-content collapse">
+              <li>
+                <a href="{% url "historique" %}">
+                  <i class="bi bi-circle"></i><span>Historique Aliments</span>
+                </a>
+              </li>
+                <li>
+                  <a href="{% url "alles" %}" >
+                  <i class="bi bi-circle"></i><span>Historique Animales</span>
+                  </a>
+                  <!-- Sous-menu dans "Gestion des Animaux" -->
+                 
+                </li>
+             
+            </ul>
+          </li>
+
+
+
+          
+          <li>
+            <a href="#" data-bs-target="#planning-subnav" data-bs-toggle="collapse" class="nav-link collapsed">
+              <i class="bi bi-circle"></i><span>Les plannings</span><i class="bi bi-chevron-down ms-auto"></i>
+            </a>
+            <!-- Sous-menu dans "Gestion des Animaux" -->
+            <ul id="planning-subnav" class="nav-content collapse">
+              <li>
+                <a href="{% url "animal_planning" %}">
+                  <i class="bi bi-circle"></i><span>Santé</span>
+                </a>
+              </li>
+              <li>
+                <a href="{% url "type_planning" %}">
+                  <i class="bi bi-circle"></i><span>Nourrir</span>
+                </a>
+              </li>
+              <li>
+                <a href="{% url "list_planning_sante" %}">
+                  <i class="bi bi-circle"></i><span>liste de planning santé</span>
+                </a>
+              </li>
+              <li>
+                <a href="{% url "list_planning_nourrir" %}">
+                  <i class="bi bi-circle"></i><span>liste planning nourrir</span>
+                </a>
+              </li>
+             
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <!-- End Components Nav -->
+
+
+
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#components-nav-2" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-menu-button-wide"></i><span>GESTION DES CULTURES</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="components-nav-2" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="{% url "show_all_culture" %}">
+              <i class="bi bi-circle"></i><span>Parcelle</span>
+            </a>
+          </li>
+          <li>
+            <a href="{% url "culture" %}">
+              <i class="bi bi-circle"></i><span>Enregistrer Cultures</span>
+            </a>
+          </li>
+          <li>
+            <a href="{% url "production" %}">
+              <i class="bi bi-circle"></i><span>Production</span>
+            </a>
+          </li>
+          <li>
+            <a href="{% url "list_planning" %}">
+              <i class="bi bi-circle"></i><span>liste plannings</span>
+            </a>
+          </li>
+          <li>
+            <a href="{% url "list" %}">
+              <i class="bi bi-circle"></i><span>liste Production</span>
+            </a>
+          </li>
+
+
+          <li>
+            <a href="#" data-bs-target="#animal-subnav" data-bs-toggle="collapse" class="nav-link collapsed">
+              <i class="bi bi-circle"></i><span>Consulter Historique</span><i class="bi bi-chevron-down ms-auto"></i>
+            </a>
+            <!-- Sous-menu dans "Gestion des cultures" -->
+            <ul id="animal-subnav" class="nav-content collapse">
+             
+              <li>
+                <a href="{% url "lists" %}">
+                  <i class="bi bi-circle"></i><span>Historique Production</span>
+                </a>
+              </li>
+             
+            </ul>
+          </li>
+          
+
+        </ul>
+      </li>
+
+
+
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#employe-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-menu-button-wide"></i><span>GESTION DES UTILISATEURS</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="employe-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="{% url "manage_permissions" %}">
+              <i class="bi bi-circle"></i><span>Employer</span>
+            </a>
+          </li>
+          <li>
+            <a href="{% url "create_group" %}">
+              <i class="bi bi-circle"></i><span>Creer groupe</span>
+            </a>
+          </li>
+          <li>
+            <a href="{% url "list_group" %}">
+              <i class="bi bi-circle"></i><span>Roles</span>
+            </a>
+          </li>
+        </ul>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#stats-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-menu-button-wide"></i><span>STATISTIQUES</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="stats-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="{% url "stats_animal" %}">
+              <i class="bi bi-circle"></i><span>Statistique Animales</span>
+            </a>
+          </li>
+          <li>
+            <a href="{% url "stat_production" %}">
+              <i class="bi bi-circle"></i><span>Statistique Production</span>
+            </a>
+          </li>
+        </ul>
+      </li>
+
+
+      
+      {% if user.is_authenticated %}
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="{% url "edite_user" request.user.id %}">
+          <i class="bi bi-person"></i>
+          <span>Profile</span>
+        </a>
+      </li><!-- End Profile Page Nav -->
+      {% endif %}
+     
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="{% url "logout" %}">
+          <i class="bi bi-file-earmark"></i>
+          <span>Deconnecter</span>
+        </a>
+      </li><!-- End Blank Page Nav -->
+
+    </ul>
+
+  </aside><!-- End Sidebar-->
+
+  <main id="main" class="main">
+
+    
+   
+    <div class="card-body table-responsible">
+      {% if messages %}
+      {% for message in messages %}
+          <div class="alert {% if message.tags == 'success' %}alert-success{% elif message.tags == 'error' %}alert-danger{% endif %}">
+              {{ message }}
+          </div>
+      {% endfor %}
+  {% endif %}
+      {% block content %}
+      {% endblock content %}
+    </div>
+
+  </main><!-- End #main -->
+
+
+  <!-- ======= Footer ======= -->
+  <footer id="footer" class="footer">
+    <div class="copyright">
+      &copy; Copyright <strong><span>KAFYKA</span></strong>.2023
+    </div>
+    <div class="credits">
+      <!-- All the links in the footer should remain intact. -->
+      <!-- You can delete the links only if you purchased the pro version. -->
+      <!-- Licensing information: https://bootstrapmade.com/license/ -->
+      <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/ -->
+      Designed by <a href="#">BootstrapMade</a>
+    </div>
+  </footer><!-- End Footer -->
+
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Vendor JS Files -->
+  <script src="{% static "assets/vendor/apexcharts/apexcharts.min.js" %}"></script>
+  <script src="{% static "assets/vendor/bootstrap/js/bootstrap.bundle.min.js" %}"></script>
+  <script src="{% static "assets/vendor/chart.js/chart.umd.js" %}"></script>
+  <script src="{% static "assets/vendor/echarts/echarts.min.js" %}"></script>
+  <script src="{% static "assets/vendor/quill/quill.js" %}"></script>
+  <script src="{% static "assets/vendor/simple-datatables/simple-datatables.js" %}"></script>
+  <script src="{% static "assets/vendor/tinymce/tinymce.min.js" %}"></script>
+  <script src="{% static "assets/vendor/php-email-form/validate.js" %}"></script>
+  <script src="{% static "assets/js/style.js" %}"></script>
+
+  <!-- Template Main JS File -->
+  <script src="{% static "assets/js/main.js" %}"></script>
+
+
+</body>
+
+</html>

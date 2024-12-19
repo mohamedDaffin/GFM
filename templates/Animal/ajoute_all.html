@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}Ajouter un Troupeau{% endblock %}
+{% block content %}
+<div class="card shadow">
+    <div class="text-center pagetitle">
+        <h1>Ajouter un Troupeau</h1>  
+    </div>
+    <div class="card-body">
+        <form method="POST">
+            {% csrf_token %}
+            {{ form|crispy }}
+            <div class="text-center mt-3">
+                <button type="submit" class="btn btn-primary mx-1 my-1">Ajouter type animal</button>
+                <a href="{% url 'show_all_page' %}" class="btn btn-secondary mx-1 my-1">Annuler</a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="card shadow">
+    <h1>Historique des Aliments</h1>
+    <table class="table datatable">
+        <thead>
+            <tr>
+                <th>Aliment</th>
+                <th>Quantité en Stock</th>
+                <th>Quantité sortie</th>
+                <th>Quantité entre</th>
+
+                {% comment %} <th>Reste</th> {% endcomment %}
+
+                <th>Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in historique %}
+            <tr>
+                <td>{{ item.aliment }}</td>
+                <td>{{ item.entre }}</td>
+                <td>{{ item.sortie }}</td>
+                <td>{{ item.difference }}</td>
+
+                {% comment %} <td>{{ item.entre | add:"-0" | add:item.sortie }}</td> {% endcomment %}
+
+                <td>{{ item.date }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a class="btn btn-primary" href="{% url "pdf_historique" %}">pdf</a>
+
+</div>
+{% endblock %}

@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+
+            <div class="card ">
+                <div class="text-center pagetitle">
+                    <h1>Listes des Planifications</h1>
+                </div>
+                <div class="card-body table-responsible">
+           
+                    <div class="card-body">
+                        {% if arroses %}
+                        <table class="table table-hover table-bordered table-striped">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th>Periode</th>
+                                    <th>Date d'Enregistrement</th>
+                                    <th>Culture</th>
+                                    <th>Champ</th>
+                                    <th>Employer</th>
+                                    <th>Action</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for arroser in arroses %}
+                                <tr>
+                                    <td>
+                                        {% if arroser.matin_culture and arroser.midi_culture and arroser.soir_culture %}
+                                        <ul>midi</ul>
+                                        <ul>matin</ul>
+                                        <ul>soir</ul>
+                                        {% elif arroser.matin_culture and arroser.midi_culture %}
+                                        <ul>midi</ul>
+                                        <ul>matin</ul>
+                                        {% elif arroser.matin_culture and arroser.soir_culture %}
+                                        <ul>matin</ul>
+                                        <ul>soir</ul>
+                                        {% elif arroser.soir_culture and arroser.midi_culture %}
+                                        <ul>midi</ul>
+                                        <ul>soir</ul>
+                                        {% elif arroser.matin_culture %}
+                                        <ul>matin</ul>
+                                        {% elif arroser.soir_culture %}
+                                        <ul>soir</ul>
+                                        {% else %}
+                                        <ul>midi</ul>
+                                        {% endif %}
+                                    </td>
+                                    <td>{{ arroser.date_arroser|date:"d M Y H:i" }}</td>
+                                    <td>{{ arroser.culture.name_culture }}</td>
+                                    <td>{{ arroser.champ.name_champ }}</td>
+                                    <td>{{ arroser.user.username }}</td>
+
+                                    <td>
+                                        <div class="d-flex flex-wrap">
+                                            <a href="{% url 'edite_arrose' arroser.id %}" class="btn btn-warning mx-1 my-1"><i class="bi bi-pencil"></i></a>
+                                            <a href="{% url 'delete_arrose' arroser.id %}" class="btn btn-danger mx-1 my-1"><i class="bi bi-trash"></i></a>
+                                        </div>
+                                    </td>
+
+                                </tr>
+                                {% empty %}
+                                <tr>
+                                    <ul colspan="7" class="text-center">Aucun arrosage enregistré.</ul>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                        {% else %}
+                        <p class="text-center">Aucun arrosage trouvé.</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+
+
+{% endblock content %}

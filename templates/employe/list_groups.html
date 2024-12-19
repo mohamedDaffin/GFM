@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}Liste des Groupes{% endblock %}
+
+{% block content %}
+
+    <div class="card shadow">
+        <div class="text-center pagetitle">
+            <h2>Liste des Groupes</h2>
+        </div>
+        <div class="d-flex justify-content-center my-3">
+
+         <a href="{% url 'create_group' %}" class="btn btn-primary mx-1 my-1">Ajouter un Groupe</a>
+        </div>
+        <div class="card-body">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Nom du Groupe</th>
+                        <th>Permissions</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for group in groups %}
+                    <tr>
+                        <td>{{ group.name }}</td>
+                        <td>
+                            {% for perm in group.permissions.all %}
+                                <li>{{ perm.name }}</li>
+                            {% empty %}
+                                <span>Aucune permission</span>
+                            {% endfor %}
+                        </td>
+                        <td>
+                            <a href="{% url "list_detail" group.id %}" class="btn btn-info mx-1 my-1"><i class="bi bi-info-circle"></i></a>
+                            <a href="{% url "edite_manage_permission_retire" group.id%}" class="btn btn-warning mx-1 my-1"><i class="bi bi-pencil"></i></a>
+                            <a href="{% url 'delete_group' group.id %}" class="btn btn-danger mx-1 my-1"><i class="bi bi-trash"></i></a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+{% endblock %}

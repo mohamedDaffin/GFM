@@ -1,0 +1,45 @@
+
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+<div class="card shadow">
+                <h4 class="mb-0">Liste des culture</h4>
+                   
+                </div>
+                <div class="card-body">
+                    <table class="table table-hover">
+                        <div class="mb-3">
+                            <a href="{% url "culture" %}" class="btn btn-primary mx-1 my-1">Ajouter une culture</a>
+                        </div>
+                        <thead class="thead-light">
+                            <tr>
+                                <th>#</th>
+                                <th>nom Culture</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for production in detail %}
+                            <tr>
+                                <td>{{ forloop.counter }}</td>
+                                <td>{{ production.name_culture }}</td>
+                                <td>
+                                    <a href="{% url "edite_culture" production.id %}" class="btn btn-warning mx-1 my-1"><i class="bi bi-pencil"></i></a>
+                                    <a href="#" class="btn btn-danger mx-1 my-1"><i class="bi bi-trash"></i></a>
+                                </td>
+                            </tr>
+                            {% empty %}
+                            <tr>
+                                <td colspan="5" class="text-center">Aucune culture enregistrée.</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+
+                    <a href="{% url "show_all_culture" %}" class="btn btn-secondary mx-1 my-1">Annuler</a>
+                   
+   
+</div>
+
+{% endblock content %}

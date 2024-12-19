@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+   
+           
+       
+        <div class="card shadow">
+            <div class="text-center pagetitle">
+                <h2>Enregistrer Planning Animalière</h2>
+            </div>
+            <div class="card-body">
+                <form method="POST">
+                    {% csrf_token %}
+                    {{ form|crispy }}
+                    <div class="form-group text-center">
+                        
+                            <a href="{% url "show_all_culture" %}" class="btn btn-secondary mx-1 my-1">Annuler</a>
+                        <button type="submit" class="btn btn-success mx-1 my-1">Enregistrer</button>
+                    </div>
+                </form>
+            </div>
+    </div>
+
+
+
+{% endblock %}

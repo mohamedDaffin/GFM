@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block content %}
+
+    <section class="section">
+        <div class="row">
+            <div class="col-lg-15">
+                <div class="card">
+                    <div class="card-body table-responsive">
+                        <div class="d-flex justify-content-center my-3">
+                            <a href="{% url 'show_all' %}" class="btn btn-primary mx-1 my-1">Ajouter un Troupeau</a>
+                        </div>
+                        
+                        <table class="table datatable">
+                            <thead>
+                                <tr>
+                                    <th>N.</th>
+                                    <th>Nom</th>
+                                    <th>Nombre</th>
+                                    <th>Classe</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for type_animal in type %}
+                                    <tr>
+                                        <td>{{ forloop.counter }}</td>
+                                        <td><a href="{% url 'show_all_detail' type_animal.id %}">{{ type_animal.name_type }}</a></td>
+                                        <td> <a href="{% url 'update' type_animal.id %}"> {{ type_animal.nombre }}</a></td>
+                                        <td>{{ type_animal.classe }}</td>
+                                        <td>
+                                            <div class="d-flex flex-wrap">
+                                                <a href="{% url 'editer_all' type_animal.slug %}" class="btn btn-warning mx-1 my-1">
+                                                    <i class="bi bi-pencil"></i>
+                                                </a>
+                                                <a href="{% url 'delete_all' type_animal.id %}" class="btn btn-danger mx-1 my-1">
+                                                    <i class="bi bi-trash"></i>
+                                                </a>
+                                                <a href="{% url 'nourrir' type_animal.id %}" class="btn btn-success mx-1 my-1">
+                                                    Alimenter
+                                                </a>
+                                                
+                                                <!-- Bouton qui ouvre la modale de vente -->
+                                                <a href="{% url "many_delete_animal" %}" class="btn btn-primary mx-1 my-1">
+                                                    Vente
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                {% empty %}
+                                    <tr>
+                                        <td colspan="5" class="text-center">Aucun Troupeau disponible.</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modale de vente, placée en dehors du form principal -->
+     <!-- <br>
+     <br>
+    <form action="{% url "many_delete" %}" method="post">
+        {% csrf_token %}
+        <div class="modal fade" id="venteModal" tabindex="-1" aria-labelledby="venteModalLabel" aria-hidden="true" data-bs-backdrop="false">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="venteModalLabel">Confirmation de Vente</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <label for="quantite">Entrer le nombre d'animaux a supprimer</label>
+                        <input type="number" id="quantite" name="quantite">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                        <button type="submit" class="btn btn-primary">Confirmer la Vente</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    -->
+
+{% endblock content %}
